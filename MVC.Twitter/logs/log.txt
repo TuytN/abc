@@ -1,0 +1,80 @@
+ERROR 2016-03-21 15:53:25,335   383ms HomeController         Index              - demo
+ERROR 2016-03-21 16:33:34,946   396ms HomeController         Index              - demo
+ERROR 2016-03-21 16:46:05,002   332ms HomeController         Index              - demo
+ERROR 2016-03-21 17:10:12,913  3485ms HomeController         Index              - demo
+ERROR 2016-03-21 17:30:51,506   579ms HomeController         Index              - demo
+ERROR 2016-03-22 14:40:52,199 612294ms TwitterHelper          GetResponse        - System.Net.WebException: The remote server returned an error: (403) Forbidden.
+   at System.Net.HttpWebRequest.GetResponse()
+   at MVC.Twitter.TwitterHelper.GetResponse(String resourceUrl, String methodName, SortedDictionary`2 requestParameters) in D:\CodeQuality\MVC.Twitter\MVC.Twitter\Models\TwitterHelper.cs:line 86
+ERROR 2016-03-22 14:54:09,954 1410049ms TwitterHelper          GetResponse        - System.Net.WebException: The remote server returned an error: (403) Forbidden.
+   at System.Net.HttpWebRequest.GetResponse()
+   at MVC.Twitter.TwitterHelper.GetResponse(String resourceUrl, String methodName, SortedDictionary`2 requestParameters) in D:\CodeQuality\MVC.Twitter\MVC.Twitter\Models\TwitterHelper.cs:line 86
+ERROR 2016-03-22 15:04:24,323 39680ms TwitterHelper          GetResponse        - System.Net.WebException: The remote server returned an error: (403) Forbidden.
+   at System.Net.HttpWebRequest.GetResponse()
+   at MVC.Twitter.TwitterHelper.GetResponse(String resourceUrl, String methodName, SortedDictionary`2 requestParameters) in D:\CodeQuality\MVC.Twitter\MVC.Twitter\Models\TwitterHelper.cs:line 86
+ERROR 2016-03-22 15:10:26,968 402325ms TwitterHelper          GetResponse        - System.Net.WebException: The remote server returned an error: (403) Forbidden.
+   at System.Net.HttpWebRequest.GetResponse()
+   at MVC.Twitter.TwitterHelper.GetResponse(String resourceUrl, String methodName, SortedDictionary`2 requestParameters) in D:\CodeQuality\MVC.Twitter\MVC.Twitter\Models\TwitterHelper.cs:line 86
+ERROR 2016-03-22 15:10:34,091 409447ms TwitterHelper          GetResponse        - System.Net.WebException: The remote server returned an error: (403) Forbidden.
+   at System.Net.HttpWebRequest.GetResponse()
+   at MVC.Twitter.TwitterHelper.GetResponse(String resourceUrl, String methodName, SortedDictionary`2 requestParameters) in D:\CodeQuality\MVC.Twitter\MVC.Twitter\Models\TwitterHelper.cs:line 86
+ERROR 2016-03-22 15:13:56,538  8345ms TwitterHelper          GetResponse        - System.Net.WebException: The remote server returned an error: (403) Forbidden.
+   at System.Net.HttpWebRequest.GetResponse()
+   at MVC.Twitter.TwitterHelper.GetResponse(String resourceUrl, String methodName, SortedDictionary`2 requestParameters) in D:\CodeQuality\MVC.Twitter\MVC.Twitter\Models\TwitterHelper.cs:line 86
+ERROR 2016-03-22 15:14:02,987 14794ms TwitterHelper          GetResponse        - System.Net.WebException: The remote server returned an error: (403) Forbidden.
+   at System.Net.HttpWebRequest.GetResponse()
+   at MVC.Twitter.TwitterHelper.GetResponse(String resourceUrl, String methodName, SortedDictionary`2 requestParameters) in D:\CodeQuality\MVC.Twitter\MVC.Twitter\Models\TwitterHelper.cs:line 86
+ERROR 2016-03-22 15:14:56,658 68465ms TwitterHelper          GetResponse        - System.Net.WebException: The remote server returned an error: (403) Forbidden.
+   at System.Net.HttpWebRequest.GetResponse()
+   at MVC.Twitter.TwitterHelper.GetResponse(String resourceUrl, String methodName, SortedDictionary`2 requestParameters) in D:\CodeQuality\MVC.Twitter\MVC.Twitter\Models\TwitterHelper.cs:line 86
+ERROR 2016-03-22 15:23:05,927  1633ms HomeController         PostTweet          - The remote server returned an error: (403) Forbidden.
+ERROR 2016-03-22 15:23:12,876  8582ms HomeController         PostTweet          - The remote server returned an error: (403) Forbidden.
+ERROR 2016-03-22 15:24:32,957 88663ms HomeController         PostTweet          - The remote server returned an error: (403) Forbidden.
+ERROR 2016-03-22 15:24:53,446 109152ms HomeController         PostTweet          - The remote server returned an error: (403) Forbidden.
+ERROR 2016-03-22 15:36:53,500 11779ms HomeController         PostTweet          - The remote server returned an error: (403) Forbidden.
+ERROR 2016-03-22 15:36:59,455 17734ms HomeController         PostTweet          - The remote server returned an error: (403) Forbidden.
+ERROR 2016-03-22 15:45:56,589  3239ms HomeController         PostTweet          - The remote server returned an error: (403) Forbidden.
+ERROR 2016-03-22 15:53:14,500 215450ms HomeController         PostTweet          - The remote server returned an error: (403) Forbidden.
+ERROR 2016-03-22 17:04:02,316  8753ms HomeController         PostTweet          - The remote server returned an error: (403) Forbidden.
+ERROR 2016-03-24 15:33:51,088 101485ms TwitterService         PostTweet          - The remote server returned an error: (403) Forbidden.
+ERROR 2016-03-24 15:33:51,149 101546ms HomeController         PostTweet          - The remote server returned an error: (403) Forbidden.
+ERROR 2016-03-24 16:32:44,150 34388ms HomeController         PostTweet          - Object reference not set to an instance of an object.
+ERROR 2016-03-24 16:58:04,601 38401ms TwitterService         PostTweet          - The remote server returned an error: (401) Unauthorized.
+ERROR 2016-03-24 16:58:04,638 38439ms HomeController         PostTweet          - The remote server returned an error: (401) Unauthorized.
+ERROR 2016-03-24 17:01:30,258 244058ms TwitterService         PostTweet          - The remote server returned an error: (401) Unauthorized.
+ERROR 2016-03-24 17:01:30,261 244061ms HomeController         PostTweet          - The remote server returned an error: (401) Unauthorized.
+ERROR 2016-03-24 17:06:01,868 515668ms TwitterService         PostTweet          - The remote server returned an error: (401) Unauthorized.
+ERROR 2016-03-24 17:06:01,870 515670ms HomeController         PostTweet          - The remote server returned an error: (401) Unauthorized.
+ERROR 2016-03-25 08:39:42,722 32035ms TwitterService         PostTweet          - The remote server returned an error: (401) Unauthorized.
+ERROR 2016-03-25 08:39:42,805 32118ms HomeController         PostTweet          - The remote server returned an error: (401) Unauthorized.
+ERROR 2016-03-25 08:49:36,027 19907ms HomeController         PostTweet          - The remote server returned an error: (403) Forbidden.
+ERROR 2016-03-25 09:03:14,623 45859ms HomeController         PostTweet          - The remote server returned an error: (401) Unauthorized.
+ERROR 2016-03-25 09:03:55,793 14999ms HomeController         PostTweet          - The remote server returned an error: (401) Unauthorized.
+ERROR 2016-03-25 09:06:11,421 21717ms HomeController         PostTweet          - The remote server returned an error: (401) Unauthorized.
+ERROR 2016-03-25 09:06:21,706 32002ms HomeController         PostTweet          - The remote server returned an error: (401) Unauthorized.
+ERROR 2016-03-25 09:06:59,073 69368ms HomeController         PostTweet          - The remote server returned an error: (401) Unauthorized.
+ERROR 2016-03-25 09:07:05,862 76157ms HomeController         PostTweet          - The remote server returned an error: (401) Unauthorized.
+ERROR 2016-03-25 09:07:25,425 95721ms HomeController         PostTweet          - The remote server returned an error: (401) Unauthorized.
+ERROR 2016-03-25 09:08:19,624 149919ms HomeController         PostTweet          - The remote server returned an error: (401) Unauthorized.
+ERROR 2016-03-25 09:08:42,480 172775ms HomeController         PostTweet          - The remote server returned an error: (401) Unauthorized.
+ERROR 2016-03-25 09:08:52,501 182797ms HomeController         PostTweet          - The remote server returned an error: (401) Unauthorized.
+ERROR 2016-03-25 09:17:53,179 29868ms HomeController         PostTweet          - The remote server returned an error: (401) Unauthorized.
+ERROR 2016-03-25 09:18:07,146 43836ms HomeController         PostTweet          - The remote server returned an error: (401) Unauthorized.
+ERROR 2016-03-25 09:18:38,049 74739ms HomeController         PostTweet          - The remote server returned an error: (401) Unauthorized.
+ERROR 2016-03-25 09:19:04,453 101142ms HomeController         PostTweet          - The remote server returned an error: (401) Unauthorized.
+ERROR 2016-03-25 09:21:37,562 254252ms HomeController         PostTweet          - The remote server returned an error: (401) Unauthorized.
+ERROR 2016-03-25 09:22:21,078 297768ms HomeController         PostTweet          - The remote server returned an error: (401) Unauthorized.
+ERROR 2016-03-25 09:44:36,479 1633169ms HomeController         PostTweet          - The remote server returned an error: (401) Unauthorized.
+ERROR 2016-03-25 09:47:57,432 12193ms HomeController         PostTweet          - The remote server returned an error: (401) Unauthorized.
+ERROR 2016-03-25 09:51:29,708 224469ms HomeController         PostTweet          - The remote server returned an error: (401) Unauthorized.
+ERROR 2016-03-25 09:54:33,936 408697ms HomeController         PostTweet          - The remote server returned an error: (401) Unauthorized.
+ERROR 2016-03-25 10:15:19,544 119002ms HomeController         PostTweet          - The remote server returned an error: (403) Forbidden.
+ERROR 2016-03-25 10:51:25,136 251976ms HomeController         PostTweet          - The remote server returned an error: (401) Unauthorized.
+ERROR 2016-03-25 10:51:39,780 266620ms HomeController         PostTweet          - The remote server returned an error: (401) Unauthorized.
+ERROR 2016-03-25 10:51:55,663 282503ms HomeController         PostTweet          - The remote server returned an error: (401) Unauthorized.
+ERROR 2016-03-25 14:29:40,140 20698ms HomeController         PostTweet          - The remote server returned an error: (403) Forbidden.
+ERROR 2016-03-25 14:34:10,915 37517ms HomeController         PostTweet          - Cannot perform runtime binding on a null reference
+ERROR 2016-03-25 14:39:13,636 340237ms HomeController         PostTweet          - Cannot perform runtime binding on a null reference
+ERROR 2016-03-25 14:40:44,891 60956ms HomeController         PostTweet          - Cannot perform runtime binding on a null reference
+ERROR 2016-03-25 14:41:39,757 115822ms HomeController         PostTweet          - Cannot perform runtime binding on a null reference
+ERROR 2016-03-25 14:43:48,925 244991ms HomeController         PostTweet          - Cannot perform runtime binding on a null reference

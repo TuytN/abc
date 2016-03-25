@@ -1,0 +1,47 @@
+﻿@model IEnumerable<MVC.Twitter.Models.TweetModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<form action="~/Home/PostTweet">
+    Tweet now: <textarea type="input" name="TweetText" class="form-control"> </textarea>
+    <input type="submit" value="Tweet!" class="btn btn-default">
+</form>
+<form action="~/Home/Refresh">
+    <input type="submit" value="Refresh" class="btn btn-default">
+</form>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Content)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AuthorName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AuthorName)
+            </td>
+        </tr>
+    }
+
+</table>
+
+@*<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+    <script type="text/javascript">
+    $if (@ViewData["Error"] != null)
+    {
+        alert(@ViewData["Error"]);
+    }
+    </script>*@
