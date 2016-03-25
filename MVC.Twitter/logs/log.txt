@@ -78,3 +78,5 @@ ERROR 2016-03-25 14:39:13,636 340237ms HomeController         PostTweet         
 ERROR 2016-03-25 14:40:44,891 60956ms HomeController         PostTweet          - Cannot perform runtime binding on a null reference
 ERROR 2016-03-25 14:41:39,757 115822ms HomeController         PostTweet          - Cannot perform runtime binding on a null reference
 ERROR 2016-03-25 14:43:48,925 244991ms HomeController         PostTweet          - Cannot perform runtime binding on a null reference
+ERROR 2016-03-26 02:27:00,281 127383ms HomeController         PostTweet          - The remote server returned an error: (401) Unauthorized.
+ERROR 2016-03-26 02:28:20,180 207282ms HomeController         PostTweet          - The remote server returned an error: (401) Unauthorized.

@@ -47,7 +47,7 @@ namespace MVC.Twitter
         /// <param name="methodName"> GET/POST <param>
         /// <param name="requestParameters"></param>
         /// <returns> The response string </returns>
-        public async Task<string> GetResponse(HttpRequestMessage request)
+        public string GetResponse(WebRequest request)
         {
             if (request == null)
             {
@@ -58,20 +58,13 @@ namespace MVC.Twitter
 
             try
             {
-                //var response = request.GetResponse();
-                //using (var sd = new StreamReader(response.GetResponseStream()))
-                //{
-                //    resultString = sd.ReadToEnd();
-                //    response.Close();
-                //}
-
-                var httpClient = new HttpClient();
-                //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(request.Headers.Authorization);
+                var response = request.GetResponse();
+                using (var sd = new StreamReader(response.GetResponseStream()))
+                {
+                    resultString = sd.ReadToEnd();
+                    response.Close();
+                }
                 
-                HttpResponseMessage responseUserTimeLine = await httpClient.SendAsync(request);
-
-                //TODO
-                resultString = responseUserTimeLine.Content.ReadAsStringAsync().Result;
             }
             catch (Exception ex)
             {
@@ -88,7 +81,7 @@ namespace MVC.Twitter
         /// <param name="methodName"></param>
         /// <param name="requestParameters"></param>
         /// <returns></returns>
-        public HttpRequestMessage CreateRequest(string resourceUrl, HttpMethod methodName, SortedDictionary<string, string> requestParameters)
+        public WebRequest CreateRequest(string resourceUrl, HttpMethod methodName, SortedDictionary<string, string> requestParameters)
         {
             if (string.IsNullOrEmpty(resourceUrl))
             {
@@ -106,27 +99,25 @@ namespace MVC.Twitter
             }
 
             //TODO: what does this do?
-            //ServicePointManager.Expect100Continue = false;
+            ServicePointManager.Expect100Continue = false;
 
-            //WebRequest request = null;
+            WebRequest request = null;
 
             if (requestParameters.Count != 0)
             {
-                resourceUrl = resourceUrl + "?" + requestParameters.ToWebString();
+                request = (HttpWebRequest)WebRequest.Create(resourceUrl + "?" + requestParameters.ToWebString());
             }
             else
             {
-                //request = (HttpWebRequest)WebRequest.Create(resourceUrl);
+                request = (HttpWebRequest)WebRequest.Create(resourceUrl);
 
             }
-
-            HttpRequestMessage request = new HttpRequestMessage(methodName, resourceUrl);
-
-            request.Method = methodName;
-            //request.Content = new StringContent("",Encoding.UTF8,"application/x-www-form-urlencoded");
+            
+            request.Method = methodName.ToString();
+            request.ContentType = "application/x-www-form-urlencoded";
 
             var authHeader = CreateHeader(resourceUrl, methodName, requestParameters);
-            request.Headers.Authorization = new AuthenticationHeaderValue("OAuth", authHeader);
+            request.Headers.Add("Authorization", authHeader);
 
             return request;
         }
@@ -168,7 +159,7 @@ namespace MVC.Twitter
             var oauthTimestamp = CreateOAuthTimestamp();
             var oauthSignature = CreateOauthSignature(resourceUrl, methodName, oauthNonce, oauthTimestamp, requestParameters);
 
-            const string HeaderFormat = "oauth_nonce=\"{0}\", oauth_signature_method=\"{1}\", "
+            const string HeaderFormat = "OAuth oauth_nonce=\"{0}\", oauth_signature_method=\"{1}\", "
                 + "oauth_timestamp=\"{2}\", oauth_consumer_key=\"{3}\", "
                 + "oauth_token=\"{4}\", oauth_signature=\"{5}\", "
                 + "oauth_version=\"{6}\"";
@@ -220,7 +211,7 @@ namespace MVC.Twitter
             requestParameters.Add("oauth_version", OauthVersion);
 
             var sigBaseString = requestParameters.ToWebString();
-            var signatureBaseString = string.Concat("GET", "&", Uri.EscapeDataString(resourceUrl), "&", Uri.EscapeDataString(sigBaseString.ToString()));
+            var signatureBaseString = string.Concat(methodName.ToString(), "&", Uri.EscapeDataString(resourceUrl), "&", Uri.EscapeDataString(sigBaseString.ToString()));
 
             var compositeKey = string.Concat(Uri.EscapeDataString(ConsumerKeySecret), "&", Uri.EscapeDataString(AccessTokenSecret));
             string oauthSignature;

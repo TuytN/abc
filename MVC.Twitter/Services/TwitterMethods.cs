@@ -32,7 +32,7 @@ namespace MVC.Twitter.Services
             requestParameters.Add("count", count.ToString());
             requestParameters.Add("result_type", "mixed");
             var request = helper.CreateRequest(resourceUrl, HttpMethod.Get, requestParameters);
-            var response = helper.GetResponse(request).Result;
+            var response = helper.GetResponse(request);
             return response;
         }
 
@@ -50,7 +50,7 @@ namespace MVC.Twitter.Services
             var requestParameters = new SortedDictionary<string, string>();
             requestParameters.Add("count", count.ToString());
             var request = helper.CreateRequest(resourceUrl, HttpMethod.Get, requestParameters);
-            var response = helper.GetResponse(request).Result;
+            var response = helper.GetResponse(request);
             return response;
         }
 
@@ -69,7 +69,7 @@ namespace MVC.Twitter.Services
             requestParameters.Add("count", count.ToString());
             requestParameters.Add("max_id", max_id);
             var request = helper.CreateRequest(resourceUrl, HttpMethod.Get, requestParameters);
-            var response = helper.GetResponse(request).Result;
+            var response = helper.GetResponse(request);
             return response;
         }
 
@@ -88,7 +88,7 @@ namespace MVC.Twitter.Services
             requestParameters.Add("status", stt);
             requestParameters.Add("display_coordinates", "false");
             var request = helper.CreateRequest(resourceUrl, HttpMethod.Post, requestParameters);
-            var response = helper.GetResponse(request).Result;
+            var response = helper.GetResponse(request);
             return response;
         }
     }
