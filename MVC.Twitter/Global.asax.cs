@@ -21,6 +21,7 @@ namespace MVC.Twitter
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             log4net.Config.XmlConfigurator.Configure(new FileInfo(Server.MapPath("~/Web.config")));
             TweetsModel.Tweets = TwitterService.GetAllTweets();
+            //TweetModel tweet = TwitterService.PostTweet("alo");
         }
     }
 }

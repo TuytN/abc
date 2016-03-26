@@ -1,8 +1,6 @@
-﻿//code taken from http://oauth.googlecode.com/svn/code/csharp/
-//GenerateTimeStamp was modified as well some naming convention
-
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
@@ -42,7 +40,7 @@ namespace MVC.Twitter
         protected const string Rsasha1SignatureType = "RSA-SHA1";
 
         protected const string UnreservedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.~";
-        protected readonly Random Random = new Random();
+        //protected readonly Random Random = new Random();
 
         /// <summary>
         ///     Helper function to compute a hash value

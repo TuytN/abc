@@ -31,7 +31,7 @@ namespace MVC.Twitter.Services
             requestParameters.Add("q", twitterHashTag);
             requestParameters.Add("count", count.ToString());
             requestParameters.Add("result_type", "mixed");
-            var request = helper.CreateRequest(resourceUrl, HttpMethod.Get, requestParameters);
+            var request = helper.CreateRequest(resourceUrl, "GET", requestParameters);
             var response = helper.GetResponse(request);
             return response;
         }
@@ -49,8 +49,8 @@ namespace MVC.Twitter.Services
             string resourceUrl = string.Format("https://api.twitter.com/1.1/statuses/user_timeline.json");
             var requestParameters = new SortedDictionary<string, string>();
             requestParameters.Add("count", count.ToString());
-            var request = helper.CreateRequest(resourceUrl, HttpMethod.Get, requestParameters);
-            var response = helper.GetResponse(request);
+            //var request = helper.CreateRequest(resourceUrl, "GET", requestParameters);
+            var response = helper.GetHomeTimeLine("count=" + count.ToString());
             return response;
         }
 
@@ -68,7 +68,7 @@ namespace MVC.Twitter.Services
             var requestParameters = new SortedDictionary<string, string>();
             requestParameters.Add("count", count.ToString());
             requestParameters.Add("max_id", max_id);
-            var request = helper.CreateRequest(resourceUrl, HttpMethod.Get, requestParameters);
+            var request = helper.CreateRequest(resourceUrl, "GET", requestParameters);
             var response = helper.GetResponse(request);
             return response;
         }
@@ -86,9 +86,9 @@ namespace MVC.Twitter.Services
             string resourceUrl = string.Format("https://api.twitter.com/1.1/statuses/update.json");
             var requestParameters = new SortedDictionary<string, string>();
             requestParameters.Add("status", stt);
-            requestParameters.Add("display_coordinates", "false");
-            var request = helper.CreateRequest(resourceUrl, HttpMethod.Post, requestParameters);
-            var response = helper.GetResponse(request);
+            //requestParameters.Add("display_coordinates", "false");
+            //var request = helper.CreateRequest(resourceUrl, "POST", requestParameters);
+            var response = helper.UpdateStatus("status=" + stt);
             return response;
         }
     }

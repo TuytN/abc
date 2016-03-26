@@ -80,3 +80,6 @@ ERROR 2016-03-25 14:41:39,757 115822ms HomeController         PostTweet         
 ERROR 2016-03-25 14:43:48,925 244991ms HomeController         PostTweet          - Cannot perform runtime binding on a null reference
 ERROR 2016-03-26 02:27:00,281 127383ms HomeController         PostTweet          - The remote server returned an error: (401) Unauthorized.
 ERROR 2016-03-26 02:28:20,180 207282ms HomeController         PostTweet          - The remote server returned an error: (401) Unauthorized.
+ERROR 2016-03-26 13:08:24,983 141011ms HomeController         PostTweet          - The remote server returned an error: (400) Bad Request.
+ERROR 2016-03-26 13:14:32,161 508190ms HomeController         PostTweet          - The remote server returned an error: (400) Bad Request.
+ERROR 2016-03-26 13:19:57,993 317906ms HomeController         PostTweet          - The remote server returned an error: (400) Bad Request.
