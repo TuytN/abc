@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
@@ -89,7 +90,7 @@ namespace MVC.Twitter
         /// <param name="normalizedRequestParameters"></param>
         /// <param name="timeStamp"></param>
         /// <returns>A base64 string of the hash value</returns>
-        protected string GenerateSignature(Uri url, string consumerKey, string consumerSecret, string token, string tokenSecret, string httpMethod, string timeStamp, string nonce, out string normalizedUrl,
+        protected string GenerateSignature(Uri url, string consumerKey, string consumerSecret, string token, string tokenSecret, HttpMethod httpMethod, string timeStamp, string nonce, out string normalizedUrl,
             out string normalizedRequestParameters)
         {
             return GenerateSignature(url, consumerKey, consumerSecret, token, tokenSecret, httpMethod, timeStamp, nonce, SignatureTypes.Hmacsha1, out normalizedUrl, out normalizedRequestParameters);
@@ -110,7 +111,7 @@ namespace MVC.Twitter
         /// <param name="normalizedRequestParameters"></param>
         /// <param name="timeStamp"></param>
         /// <returns>A base64 string of the hash value</returns>
-        private string GenerateSignature(Uri url, string consumerKey, string consumerSecret, string token, string tokenSecret, string httpMethod, string timeStamp, string nonce, SignatureTypes signatureType, out string normalizedUrl,
+        private string GenerateSignature(Uri url, string consumerKey, string consumerSecret, string token, string tokenSecret, HttpMethod httpMethod, string timeStamp, string nonce, SignatureTypes signatureType, out string normalizedUrl,
             out string normalizedRequestParameters)
         {
             normalizedUrl = null;
@@ -152,7 +153,7 @@ namespace MVC.Twitter
         /// <param name="normalizedRequestParameters"></param>
         /// <param name="timeStamp"></param>
         /// <returns>The signature base</returns>
-        private static string GenerateSignatureBase(Uri url, string consumerKey, string token, string tokenSecret, string httpMethod, string timeStamp, string nonce, string signatureType, out string normalizedUrl,
+        private static string GenerateSignatureBase(Uri url, string consumerKey, string token, string tokenSecret, HttpMethod httpMethod, string timeStamp, string nonce, string signatureType, out string normalizedUrl,
             out string normalizedRequestParameters)
         {
             if (token == null)
@@ -161,7 +162,7 @@ namespace MVC.Twitter
             if (string.IsNullOrEmpty(consumerKey))
                 throw new ArgumentNullException("consumerKey");
 
-            if (string.IsNullOrEmpty(httpMethod))
+            if (httpMethod == null)
                 throw new ArgumentNullException("httpMethod");
 
             if (string.IsNullOrEmpty(signatureType))
@@ -186,7 +187,7 @@ namespace MVC.Twitter
             normalizedRequestParameters = NormalizeRequestParameters(parameters);
 
             StringBuilder signatureBase = new StringBuilder();
-            signatureBase.AppendFormat("{0}&", httpMethod.ToUpper());
+            signatureBase.AppendFormat("{0}&", httpMethod.ToString().ToUpper());
             signatureBase.AppendFormat("{0}&", UrlEncode(normalizedUrl));
             signatureBase.AppendFormat("{0}", UrlEncode(normalizedRequestParameters));
 

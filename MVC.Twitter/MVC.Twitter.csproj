@@ -205,8 +205,6 @@
     <Compile Include="Models\TweetsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\OAuthBase.cs" />
-    <Compile Include="Services\OAuthBaseT.cs" />
-    <Compile Include="Services\TwitterMethods.cs" />
     <Compile Include="Services\TwitterService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Helpers\TwitterHelper.cs" />

@@ -4,9 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Net.Http;
 using System.Web;
 
-namespace MVC.Twitter.Services
+namespace MVC.Twitter
 {
     public class TwitterService
     {
@@ -14,6 +15,37 @@ namespace MVC.Twitter.Services
 
         //private TwitterMethods twitterMethod = new TwitterMethods();
 
+        private static TwitterHelper helper = new TwitterHelper(ConfigurationManager.AppSettings["OauthConsumerKey"],
+                                                        ConfigurationManager.AppSettings["OauthConsumerKeySecret"],
+                                                        ConfigurationManager.AppSettings["OauthAccessToken"],
+                                                        ConfigurationManager.AppSettings["OauthAccessTokenSecret"]);
+
+        /// <summary>
+        ///     Get user timeline
+        /// </summary>
+        /// <param name="count"> num of tweets to get, max 200 </param>
+        /// <returns> the string response from Twitter:
+        ///     success: return the list of tweets
+        ///     fail: error code
+        /// </returns>
+        public static string GetTweets(int count, string max_id)
+        {
+            string resourceUrl = "https://api.twitter.com/1.1/statuses/user_timeline.json";
+            var requestParameters = new SortedDictionary<string, string>();
+            if (count > 0)
+            {
+                requestParameters.Add("count", count.ToString());
+            }
+
+            if (!string.IsNullOrEmpty(max_id))
+            {
+                requestParameters.Add("max_id", max_id);
+            }
+            var request = helper.CreateRequest(resourceUrl, HttpMethod.Get, requestParameters);
+            var response = helper.GetResponse(request);
+            return response;
+        }
+        
         /// <summary>
         ///     Get list tweets
         /// </summary>
@@ -22,7 +54,7 @@ namespace MVC.Twitter.Services
         {
             List<TweetModel> lstTweets = new List<TweetModel>();
 
-            var response = TwitterMethods.GetTweets(200);
+            var response = GetTweets(200, string.Empty);
 
             dynamic timeline = JsonConvert.DeserializeObject(response);
             int count;
@@ -38,7 +70,7 @@ namespace MVC.Twitter.Services
                     lstTweets.Add(model);
                 }
 
-                response = TwitterMethods.GetTweets(200, lstTweets.LastOrDefault().Id);
+                response = GetTweets(200, lstTweets.LastOrDefault().Id);
                 timeline = JsonConvert.DeserializeObject(response);
 
                 if (count >= 200)
@@ -60,7 +92,12 @@ namespace MVC.Twitter.Services
         {
             try
             {
-                string response = TwitterMethods.PostTweet(tweetText);
+                string resourceUrl = "https://api.twitter.com/1.1/statuses/update.json";
+                var requestParameters = new SortedDictionary<string, string>();
+                requestParameters.Add("status", tweetText);
+
+                var request = helper.CreateRequest(resourceUrl, HttpMethod.Post, requestParameters);
+                var response = helper.GetResponse(request);
 
                 dynamic tweet = JsonConvert.DeserializeObject(response);
 

@@ -1,6 +1,5 @@
 ﻿using Microsoft.Owin;
 using MVC.Twitter.Models;
-using MVC.Twitter.Services;
 using Owin;
 
 [assembly: OwinStartupAttribute(typeof(MVC.Twitter.Startup))]

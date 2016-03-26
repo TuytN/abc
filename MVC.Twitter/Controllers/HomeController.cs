@@ -1,6 +1,5 @@
 ﻿using log4net;
 using MVC.Twitter.Models;
-using MVC.Twitter.Services;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
