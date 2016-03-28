@@ -198,16 +198,20 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="CustomHandleErrorAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\TweetModel.cs" />
+    <Compile Include="Models\ErrorModel.cs" />
+    <Compile Include="Models\TweetInModel.cs" />
+    <Compile Include="Models\TweetOutModel.cs" />
     <Compile Include="Models\TweetsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\OAuthBase.cs" />
+    <Compile Include="Helpers\OAuthBase.cs" />
     <Compile Include="Services\TwitterService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Helpers\TwitterHelper.cs" />
+    <Compile Include="ViewModels\TweetViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />

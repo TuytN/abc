@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MVC.Twitter.Models.TweetModel>
+﻿@model IEnumerable<MVC.Twitter.ViewModels.TweetViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -6,8 +6,10 @@
 
 <h2>Index</h2>
 
+<p class = "text-danger"> @TempData["Error"] </p>
+
 <form action="~/Home/PostTweet">
-    Tweet now: <textarea type="input" name="TweetText" class="form-control"> </textarea>
+    Tweet now: <textarea type="input" name="TweetText" class="form-control"></textarea>
     <input type="submit" value="Tweet!" class="btn btn-default">
 </form>
 <form action="~/Home/Refresh">
@@ -28,10 +30,10 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Content)
+                @Html.DisplayTextFor(modelItem => item.Content)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AuthorName)
+                @Html.DisplayTextFor(modelItem => item.AuthorName)
             </td>
         </tr>
     }

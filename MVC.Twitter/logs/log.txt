@@ -83,3 +83,55 @@ ERROR 2016-03-26 02:28:20,180 207282ms HomeController         PostTweet         
 ERROR 2016-03-26 13:08:24,983 141011ms HomeController         PostTweet          - The remote server returned an error: (400) Bad Request.
 ERROR 2016-03-26 13:14:32,161 508190ms HomeController         PostTweet          - The remote server returned an error: (400) Bad Request.
 ERROR 2016-03-26 13:19:57,993 317906ms HomeController         PostTweet          - The remote server returned an error: (400) Bad Request.
+ERROR 2016-03-28 09:39:44,822 32881ms HomeController         PostTweet          - Cannot perform runtime binding on a null reference
+ERROR 2016-03-28 10:08:37,740 23051ms HomeController         PostTweet          - Cannot perform runtime binding on a null reference
+ERROR 2016-03-28 10:10:30,070 27166ms HomeController         PostTweet          - Cannot perform runtime binding on a null reference
+ERROR 2016-03-28 10:10:30,112 27208ms omHandleErrorAttribute OnException        - Custom handle ex
+ERROR 2016-03-28 10:39:43,884 16476ms HomeController         PostTweet          - Cannot perform runtime binding on a null reference
+ERROR 2016-03-28 10:39:43,911 16503ms omHandleErrorAttribute OnException        - Custom handle ex
+ERROR 2016-03-28 10:40:24,557 57149ms HomeController         PostTweet          - Null or empty string for post stt
+ERROR 2016-03-28 10:40:29,036 61628ms omHandleErrorAttribute OnException        - Custom handle ex
+ERROR 2016-03-28 10:42:04,228 156820ms HomeController         PostTweet          - Cannot perform runtime binding on a null reference
+ERROR 2016-03-28 10:42:12,220 164812ms omHandleErrorAttribute OnException        - Custom handle ex
+ERROR 2016-03-28 10:42:23,547 176139ms HomeController         PostTweet          - Null or empty string for post stt
+ERROR 2016-03-28 10:46:14,039 406631ms omHandleErrorAttribute OnException        - Custom handle ex
+ERROR 2016-03-28 10:48:12,161 15038ms HomeController         PostTweet          - Null or empty string for post stt
+ERROR 2016-03-28 10:48:17,156 20033ms HomeController         PostTweet          - Null or empty string for post stt
+ERROR 2016-03-28 10:49:14,481 77358ms HomeController         PostTweet          - Cannot perform runtime binding on a null reference
+ERROR 2016-03-28 10:49:22,831 85708ms omHandleErrorAttribute OnException        - Custom handle ex
+ERROR 2016-03-28 10:49:26,489 89365ms HomeController         PostTweet          - Cannot perform runtime binding on a null reference
+ERROR 2016-03-28 10:49:29,757 92634ms omHandleErrorAttribute OnException        - Custom handle ex
+ERROR 2016-03-28 10:49:48,580 111457ms HomeController         PostTweet          - Null or empty string for post stt
+ERROR 2016-03-28 10:50:21,108 143985ms HomeController         PostTweet          - Null or empty string for post stt
+ERROR 2016-03-28 10:52:42,224 31734ms HomeController         PostTweet          - Null or empty string for post stt
+ERROR 2016-03-28 10:57:01,275 290786ms HomeController         PostTweet          - Cannot perform runtime binding on a null reference
+ERROR 2016-03-28 10:57:01,277 290788ms omHandleErrorAttribute OnException        - Custom handle ex
+ERROR 2016-03-28 10:57:13,660 303171ms HomeController         PostTweet          - Cannot perform runtime binding on a null reference
+ERROR 2016-03-28 10:57:13,662 303173ms omHandleErrorAttribute OnException        - Custom handle ex
+ERROR 2016-03-28 10:57:26,761 316272ms HomeController         PostTweet          - Cannot perform runtime binding on a null reference
+ERROR 2016-03-28 10:57:26,762 316273ms omHandleErrorAttribute OnException        - Custom handle ex
+ERROR 2016-03-28 11:00:31,644 501155ms HomeController         PostTweet          - Cannot perform runtime binding on a null reference
+ERROR 2016-03-28 11:00:31,645 501156ms omHandleErrorAttribute OnException        - Custom handle ex
+ERROR 2016-03-28 11:01:12,984 542495ms HomeController         PostTweet          - Cannot perform runtime binding on a null reference
+ERROR 2016-03-28 11:01:12,985 542496ms omHandleErrorAttribute OnException        - Custom handle ex
+ERROR 2016-03-28 11:02:19,706 609216ms HomeController         PostTweet          - Null or empty string for post stt
+ERROR 2016-03-28 11:04:33,714 743225ms HomeController         PostTweet          - Null or empty string for post stt
+ERROR 2016-03-28 11:04:36,378 745889ms HomeController         PostTweet          - Null or empty string for post stt
+ERROR 2016-03-28 14:35:20,138 476903ms omHandleErrorAttribute OnException        - Custom handle ex
+ERROR 2016-03-28 14:40:07,163 84870ms omHandleErrorAttribute OnException        - Custom handle ex
+ERROR 2016-03-28 14:43:34,051 20357ms omHandleErrorAttribute OnException        - Custom handle ex
+ERROR 2016-03-28 15:12:36,296 115255ms omHandleErrorAttribute OnException        - Custom handle ex
+ERROR 2016-03-28 16:17:39,379 76024ms omHandleErrorAttribute OnException        - Custom handle ex
+ERROR 2016-03-28 16:22:55,176 391821ms omHandleErrorAttribute OnException        - Custom handle ex
+ERROR 2016-03-28 16:34:02,940 68314ms omHandleErrorAttribute OnException        - Custom handle ex
+ERROR 2016-03-28 16:34:55,949 121322ms omHandleErrorAttribute OnException        - Custom handle ex
+ERROR 2016-03-28 16:48:02,146 98223ms HomeController         PostTweet          - Null or empty string for post stt
+ERROR 2016-03-28 16:48:34,632 130709ms omHandleErrorAttribute OnException        - Custom handle ex
+ERROR 2016-03-28 16:49:34,610 33198ms omHandleErrorAttribute OnException        - Custom handle ex
+ERROR 2016-03-28 16:50:33,828 36480ms omHandleErrorAttribute OnException        - Custom handle ex
+ERROR 2016-03-28 17:04:41,188 883841ms omHandleErrorAttribute OnException        - Custom handle ex
+ERROR 2016-03-28 17:05:05,777 908429ms omHandleErrorAttribute OnException        - Custom handle ex
+ERROR 2016-03-28 17:10:10,880 98865ms HomeController         PostTweet          - Null or empty string for post stt
+ERROR 2016-03-28 17:13:15,210 39223ms omHandleErrorAttribute OnException        - Custom handle ex
+ERROR 2016-03-28 17:25:57,091 801105ms omHandleErrorAttribute OnException        - Custom handle ex
+ERROR 2016-03-28 18:29:26,372 23739ms HomeController         PostTweet          - Null or empty string for post stt

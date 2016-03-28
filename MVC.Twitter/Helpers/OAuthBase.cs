@@ -22,10 +22,8 @@ namespace MVC.Twitter
 
         protected const string OAuthVersion = "1.0";
         protected const string OAuthParameterPrefix = "oauth_";
-
-        //
+        
         // List of know and used oauth parameters' names
-        //        
         protected const string OAuthConsumerKeyKey = "oauth_consumer_key";
         protected const string OAuthCallbackKey = "oauth_callback";
         protected const string OAuthVersionKey = "oauth_version";
@@ -90,7 +88,7 @@ namespace MVC.Twitter
         /// <param name="normalizedRequestParameters"></param>
         /// <param name="timeStamp"></param>
         /// <returns>A base64 string of the hash value</returns>
-        protected string GenerateSignature(Uri url, string consumerKey, string consumerSecret, string token, string tokenSecret, HttpMethod httpMethod, string timeStamp, string nonce, out string normalizedUrl,
+        protected string GenerateSignatureHmacsha1Alg(Uri url, string consumerKey, string consumerSecret, string token, string tokenSecret, HttpMethod httpMethod, string timeStamp, string nonce, out string normalizedUrl,
             out string normalizedRequestParameters)
         {
             return GenerateSignature(url, consumerKey, consumerSecret, token, tokenSecret, httpMethod, timeStamp, nonce, SignatureTypes.Hmacsha1, out normalizedUrl, out normalizedRequestParameters);
@@ -126,7 +124,7 @@ namespace MVC.Twitter
 
                     using (HMACSHA1 hmacsha1 = new HMACSHA1())
                     {
-                        hmacsha1.Key = Encoding.ASCII.GetBytes(string.Format("{0}&{1}", UrlEncode(consumerSecret), string.IsNullOrEmpty(tokenSecret) ? "" : UrlEncode(tokenSecret)));
+                        hmacsha1.Key = Encoding.ASCII.GetBytes(string.Format("{0}&{1}", UrlEncode(consumerSecret), string.IsNullOrEmpty(tokenSecret) ? string.Empty : UrlEncode(tokenSecret)));
                         return GenerateSignatureUsingHash(signatureBase, hmacsha1);
                     }
                 case SignatureTypes.Rsasha1:
@@ -308,22 +306,22 @@ namespace MVC.Twitter
         {
             public QueryParameter(string name, string value)
             {
-                _name = name;
-                _value = value;
+                this.name = name;
+                this.value = value;
             }
 
             public string Name
             {
-                get { return _name; }
+                get { return name; }
             }
 
             public string Value
             {
-                get { return _value; }
+                get { return value; }
             }
 
-            private readonly string _name;
-            private readonly string _value;
+            private readonly string name;
+            private readonly string value;
         }
 
         /// <summary>

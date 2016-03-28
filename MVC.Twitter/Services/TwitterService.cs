@@ -5,82 +5,98 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Web;
 
 namespace MVC.Twitter
 {
     public class TwitterService
     {
-        //TODO: private log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
-        //private TwitterMethods twitterMethod = new TwitterMethods();
-
         private static TwitterHelper helper = new TwitterHelper(ConfigurationManager.AppSettings["OauthConsumerKey"],
-                                                        ConfigurationManager.AppSettings["OauthConsumerKeySecret"],
-                                                        ConfigurationManager.AppSettings["OauthAccessToken"],
-                                                        ConfigurationManager.AppSettings["OauthAccessTokenSecret"]);
+                                                                ConfigurationManager.AppSettings["OauthConsumerKeySecret"],
+                                                                ConfigurationManager.AppSettings["OauthAccessToken"],
+                                                                ConfigurationManager.AppSettings["OauthAccessTokenSecret"]);
 
         /// <summary>
         ///     Get user timeline
         /// </summary>
-        /// <param name="count"> num of tweets to get, max 200 </param>
+        /// <param name="count"> num of tweets to get, max 200, must larger than 0 </param>
         /// <returns> the string response from Twitter:
         ///     success: return the list of tweets
         ///     fail: error code
         /// </returns>
-        public static string GetTweets(int count, string max_id)
+        public static List<TweetInModel> GetTweets(int count, string max_id)
         {
+            List<TweetInModel> tweets = new List<TweetInModel>();
+
             string resourceUrl = "https://api.twitter.com/1.1/statuses/user_timeline.json";
-            var requestParameters = new SortedDictionary<string, string>();
+            var requestParameters = new Dictionary<string, string>();
             if (count > 0)
             {
                 requestParameters.Add("count", count.ToString());
+            }
+            else
+            {
+                throw new ArgumentException("GetTweets, count must larger than zero");
             }
 
             if (!string.IsNullOrEmpty(max_id))
             {
                 requestParameters.Add("max_id", max_id);
             }
+
             var request = helper.CreateRequest(resourceUrl, HttpMethod.Get, requestParameters);
             var response = helper.GetResponse(request);
-            return response;
+
+            if (response.Contains("error"))
+            {
+                dynamic error = JsonConvert.DeserializeObject(response);
+
+                throw new Exception(error.massage);
+            }
+            else
+            {
+                dynamic timeline = JsonConvert.DeserializeObject(response);
+
+                foreach (var tweet in timeline)
+                {
+                    TweetInModel model = ConvertToTweetModel(tweet);
+
+                    tweets.Add(model);
+                }
+            }
+            return tweets;
         }
-        
+
         /// <summary>
         ///     Get list tweets
         /// </summary>
-        /// <returns> list of tweets </returns>
-        public static List<TweetModel> GetAllTweets()
+        /// <returns> list all of tweets (less than 3200 tweets) </returns>
+        public static List<TweetInModel> GetAllTweets()
         {
-            List<TweetModel> lstTweets = new List<TweetModel>();
-
-            var response = GetTweets(200, string.Empty);
-
-            dynamic timeline = JsonConvert.DeserializeObject(response);
+            List<TweetInModel> tweets = new List<TweetInModel>();
+            string min_id = string.Empty;
             int count;
 
             do
             {
-                count = timeline.Count;
-
-                foreach (var tweet in timeline)
-                {
-                    TweetModel model = ConvertToTweetModel(tweet);
-                    
-                    lstTweets.Add(model);
-                }
-
-                response = GetTweets(200, lstTweets.LastOrDefault().Id);
-                timeline = JsonConvert.DeserializeObject(response);
-
-                if (count >= 200)
-                {
-                    lstTweets.Remove(lstTweets.LastOrDefault());
-                }
+                List<TweetInModel> tweetsAPart = GetTweets(200, min_id);
                 
-            } while (count >= 200);
+                count = tweetsAPart.Count;
 
-            return lstTweets;
+                //remove the last, don't remove when nothing in list (first time)
+                if (tweets.Count > 0)
+                {
+                    tweets.Remove(tweets.LastOrDefault());
+                }
+
+                tweets.AddRange(tweetsAPart);
+
+                min_id = tweets.LastOrDefault().Id;
+            }
+            while (count >= 200);
+
+            return tweets;
         }
 
         /// <summary>
@@ -88,37 +104,58 @@ namespace MVC.Twitter
         /// </summary>
         /// <param name="tweetText"></param>
         /// <returns></returns>
-        public static TweetModel PostTweet(string tweetText)
+        public static TweetInModel PostTweet(TweetOutModel outTweet)
         {
-            try
+            if (outTweet == null)
             {
-                string resourceUrl = "https://api.twitter.com/1.1/statuses/update.json";
-                var requestParameters = new SortedDictionary<string, string>();
-                requestParameters.Add("status", tweetText);
-
-                var request = helper.CreateRequest(resourceUrl, HttpMethod.Post, requestParameters);
-                var response = helper.GetResponse(request);
-
-                dynamic tweet = JsonConvert.DeserializeObject(response);
-
-                TweetModel model = ConvertToTweetModel(tweet);
-
-                return model;
+                throw new ArgumentNullException("outTweet");
             }
-            catch (Exception)
+            if (string.IsNullOrEmpty(outTweet.Content))
             {
-                throw;
+                throw new ArgumentException("PostTweet, text to post can not null or empty");
             }
+
+            string resourceUrl = "https://api.twitter.com/1.1/statuses/update.json";
+            var requestParameters = new Dictionary<string, string>();
+            requestParameters.Add("status", outTweet.Content);
+
+            var request = helper.CreateRequest(resourceUrl, HttpMethod.Post, requestParameters);
+            var response = helper.GetResponse(request);
+
+            if (response.Contains("error"))
+            {
+                dynamic error = JsonConvert.DeserializeObject(response);
+                ErrorModel errorModel = new ErrorModel();
+
+                foreach (var item in error.errors)
+                {
+                    errorModel.Code = ((dynamic)item).code;
+                    errorModel.Message = ((dynamic)item).message;
+                }
+
+                throw new HttpException ("Twitter error return: " + errorModel.Message);
+            }
+            
+            dynamic tweetIn = JsonConvert.DeserializeObject(response);
+
+            TweetInModel model = ConvertToTweetModel(tweetIn);
+
+            return model;
         }
 
         /// <summary>
-        /// 
+        ///     convert from dynamic to tweet model
         /// </summary>
         /// <param name="tweet"></param>
         /// <returns></returns>
-        private static TweetModel ConvertToTweetModel(dynamic tweet)
+        private static TweetInModel ConvertToTweetModel(dynamic tweet)
         {
-            TweetModel model = new TweetModel();
+            if (tweet == null)
+            {
+                throw new ArgumentNullException("tweet");
+            }
+
+            TweetInModel model = new TweetInModel();
 
             model.Id = ((dynamic)tweet).id.ToString();
             model.AuthorName = ((dynamic)tweet).user.name;

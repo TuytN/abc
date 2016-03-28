@@ -28,6 +28,11 @@ namespace MVC.Twitter
         private static string oauthNonce = GenerateNonce();
         private static string oauthTimestamp = GenerateTimeStamp();
 
+        private const string HeaderFormat = "OAuth oauth_nonce=\"{0}\", oauth_signature_method=\"{1}\", " +
+                                        "oauth_timestamp=\"{2}\", oauth_consumer_key=\"{3}\", " +
+                                        "oauth_token=\"{4}\", oauth_signature=\"{5}\", " +
+                                        "oauth_version=\"{6}\"";
+
         /// <summary>
         ///     Create class
         /// </summary>
@@ -37,6 +42,23 @@ namespace MVC.Twitter
         /// <param name="accessTokenSecret"></param>
         public TwitterHelper(string consumerKey, string consumerKeySecret, string accessToken, string accessTokenSecret)
         {
+            if (string.IsNullOrEmpty(consumerKey))
+            {
+                throw new ArgumentException("Create TwitterHelper, null or empty consumerKey");
+            }
+            if (string.IsNullOrEmpty(consumerKeySecret))
+            {
+                throw new ArgumentException("Create TwitterHelper, null or empty consumerKeySecret");
+            }
+            if (string.IsNullOrEmpty(accessToken))
+            {
+                throw new ArgumentException("Create TwitterHelper, null or empty accessToken");
+            }
+            if (string.IsNullOrEmpty(accessTokenSecret))
+            {
+                throw new ArgumentException("Create TwitterHelper, null or empty accessTokenSecret");
+            }
+
             this.ConsumerKey = consumerKey;
             this.ConsumerKeySecret = consumerKeySecret;
             this.AccessToken = accessToken;
@@ -54,14 +76,14 @@ namespace MVC.Twitter
         {
             if (request == null)
             {
-                throw new Exception("GetResponse, empty request");
+                throw new ArgumentNullException("request");
             }
 
             HttpClient httpClient1 = new HttpClient();
             HttpResponseMessage response = httpClient1.SendAsync(request).Result;
-
-            var result = response.Content.ReadAsStringAsync().Result;
-
+            
+            string result = response.Content.ReadAsStringAsync().Result;
+            
             return result;
         }
 
@@ -72,24 +94,17 @@ namespace MVC.Twitter
         /// <param name="methodName"></param>
         /// <param name="requestParameters"></param>
         /// <returns></returns>
-        public HttpRequestMessage CreateRequest(string rootUrl, HttpMethod httpMethod, SortedDictionary<string, string> requestParameters)
+        public HttpRequestMessage CreateRequest(string rootUrl, HttpMethod httpMethod, IDictionary<string, string> requestParameters)
         {
             if (string.IsNullOrEmpty(rootUrl))
             {
-                throw new Exception("CreateRequest, null or empty rootUrl");
+                throw new ArgumentException("CreateRequest, null or empty rootUrl");
             }
-            //if (string.Compare(methodName, "GET", StringComparison.OrdinalIgnoreCase) != 0
-            //    && string.Compare(methodName, "POST", StringComparison.OrdinalIgnoreCase) != 0)
-            //{
-            //    throw new Exception("CreateRequest, method is not suported");
-            //}
-            if (requestParameters == null)
+            if (httpMethod != HttpMethod.Get && httpMethod != HttpMethod.Post)
             {
-                //optional: parameter can be null, but need defined
-                requestParameters = new SortedDictionary<string, string>();
+                throw new ArgumentException("CreateRequest, method is not suported");
             }
-
-            //TODO: what does this do?
+            //TODO: IIDictionary<string, string> sortedList = new SortedIDictionary<string, string>(requestParameters);
             ServicePointManager.Expect100Continue = false;
 
             string url = string.Empty;
@@ -100,9 +115,8 @@ namespace MVC.Twitter
             }
 
             string oauthSignature = OauthSignature(url, httpMethod);
-            // create the request header
+            
             string authHeader = AuthHeader(oauthSignature);
-            // make the request
 
             ServicePointManager.Expect100Continue = false;
 
@@ -112,17 +126,22 @@ namespace MVC.Twitter
 
             return request;
         }
-        
-        #region private methods
 
+        /// <summary>
+        ///     Create an Auth header with oauthSignature and others parameter as 
+        ///     oauthNonce, oauthTimestamp, Hmacsha1SignatureType, ConsumerKey, AccessToken,
+        ///     OAuthVersion
+        /// </summary>
+        /// <param name="oauthSignature"></param>
+        /// <returns></returns>
         private string AuthHeader(string oauthSignature)
         {
-            const string headerFormat = "OAuth oauth_nonce=\"{0}\", oauth_signature_method=\"{1}\", " +
-                                        "oauth_timestamp=\"{2}\", oauth_consumer_key=\"{3}\", " +
-                                        "oauth_token=\"{4}\", oauth_signature=\"{5}\", " +
-                                        "oauth_version=\"{6}\"";
+            if (string.IsNullOrEmpty(oauthSignature))
+            {
+                throw new ArgumentException("AuthHeader, null or empty oauthSignature");
+            }
 
-            string authHeader = string.Format(headerFormat,
+            string authHeader = string.Format(HeaderFormat,
                 Uri.EscapeDataString(oauthNonce),
                 Uri.EscapeDataString(Hmacsha1SignatureType),
                 Uri.EscapeDataString(oauthTimestamp),
@@ -133,25 +152,28 @@ namespace MVC.Twitter
             return authHeader;
         }
 
+        /// <summary>
+        ///     create a Oauth Sign on url, with httpMethod
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="httpMethod"></param>
+        /// <returns></returns>
         private string OauthSignature(string url, HttpMethod httpMethod)
         {
+            if (string.IsNullOrEmpty(url))
+            {
+                throw new ArgumentException("OauthSignature, null or empty url");
+            }
+            if (httpMethod != HttpMethod.Get && httpMethod != HttpMethod.Post)
+            {
+                throw new ArgumentException("OauthSignature, method is not suported");
+            }
+
             string normalizeUrl;
             string normalizedString;
-            string oauthSignature = GenerateSignature(new Uri(url), ConsumerKey, ConsumerKeySecret, AccessToken, AccessTokenSecret, httpMethod, oauthTimestamp, oauthNonce, out normalizeUrl, out normalizedString);
+            string oauthSignature = GenerateSignatureHmacsha1Alg(new Uri(url), ConsumerKey, ConsumerKeySecret, AccessToken, AccessTokenSecret, httpMethod, oauthTimestamp, oauthNonce, out normalizeUrl, out normalizedString);
             return oauthSignature;
         }
-
-        private static string CleanupQueryString(string querystring)
-        {
-            if (!string.IsNullOrEmpty(querystring))
-            {
-                if (querystring.IndexOf('&') == 0)
-                    querystring = querystring.Remove(0, 1);
-            }
-            return querystring;
-        }
-
-        #endregion
     }
 
     /// <summary>
@@ -164,8 +186,13 @@ namespace MVC.Twitter
         /// </summary>
         /// <param name="source"> list of parameter </param>
         /// <returns> web parameter url format </returns>
-        public static string ToWebString(this SortedDictionary<string, string> source)
+        public static string ToWebString(this IDictionary<string, string> source)
         {
+            if (source == null)
+            {
+                throw new ArgumentNullException("source");
+            }
+
             var body = new StringBuilder();
             if (source.Count != 0)
             {

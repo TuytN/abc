@@ -7,6 +7,7 @@ namespace MVC.Twitter
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
+            filters.Add(new CustomHandleErrorAttribute());
             filters.Add(new HandleErrorAttribute());
         }
     }
