@@ -25,9 +25,9 @@ namespace MVC.Twitter
         ///     success: return the list of tweets
         ///     fail: error code
         /// </returns>
-        public static List<TweetInModel> GetTweets(int count, string max_id)
+        public static IList<TweetInModel> GetTweets(int count, string max_id)
         {
-            List<TweetInModel> tweets = new List<TweetInModel>();
+            IList<TweetInModel> tweets = new List<TweetInModel>();
 
             string resourceUrl = "https://api.twitter.com/1.1/statuses/user_timeline.json";
             var requestParameters = new Dictionary<string, string>();
@@ -72,7 +72,7 @@ namespace MVC.Twitter
         ///     Get list tweets
         /// </summary>
         /// <returns> list all of tweets (less than 3200 tweets) </returns>
-        public static List<TweetInModel> GetAllTweets()
+        public static IList<TweetInModel> GetAllTweets()
         {
             List<TweetInModel> tweets = new List<TweetInModel>();
             string min_id = string.Empty;
@@ -80,7 +80,7 @@ namespace MVC.Twitter
 
             do
             {
-                List<TweetInModel> tweetsAPart = GetTweets(200, min_id);
+                IList<TweetInModel> tweetsAPart = GetTweets(200, min_id);
                 
                 count = tweetsAPart.Count;
 
@@ -117,7 +117,7 @@ namespace MVC.Twitter
 
             string resourceUrl = "https://api.twitter.com/1.1/statuses/update.json";
             var requestParameters = new Dictionary<string, string>();
-            requestParameters.Add("status", outTweet.Content);
+            requestParameters.Add("status", (outTweet.Content));
 
             var request = helper.CreateRequest(resourceUrl, HttpMethod.Post, requestParameters);
             var response = helper.GetResponse(request);

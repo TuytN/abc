@@ -135,3 +135,22 @@ ERROR 2016-03-28 17:10:10,880 98865ms HomeController         PostTweet          
 ERROR 2016-03-28 17:13:15,210 39223ms omHandleErrorAttribute OnException        - Custom handle ex
 ERROR 2016-03-28 17:25:57,091 801105ms omHandleErrorAttribute OnException        - Custom handle ex
 ERROR 2016-03-28 18:29:26,372 23739ms HomeController         PostTweet          - Null or empty string for post stt
+ERROR 2016-03-29 00:17:23,467  8188ms omHandleErrorAttribute OnException        - F:\GIT\MVC_Twitter\abc\abc\MVC.Twitter\Views\Home\Index.cshtml(21): error CS1061: 'IList<TweetViewModel>' does not contain a definition for 'Content' and no extension method 'Content' accepting a first argument of type 'IList<TweetViewModel>' could be found (are you missing a using directive or an assembly reference?)
+ERROR 2016-03-29 00:18:34,381 79103ms omHandleErrorAttribute OnException        - F:\GIT\MVC_Twitter\abc\abc\MVC.Twitter\Views\Home\Index.cshtml(21): error CS1061: 'IList<TweetViewModel>' does not contain a definition for 'Content' and no extension method 'Content' accepting a first argument of type 'IList<TweetViewModel>' could be found (are you missing a using directive or an assembly reference?)
+ERROR 2016-03-29 00:47:40,737 17697ms HomeController         PostTweet          - Twitter error return: Could not authenticate you.
+ERROR 2016-03-29 00:47:47,466 24426ms HomeController         PostTweet          - Twitter error return: Could not authenticate you.
+ERROR 2016-03-29 00:47:52,238 29198ms HomeController         PostTweet          - Twitter error return: Could not authenticate you.
+ERROR 2016-03-29 00:47:58,325 35285ms HomeController         PostTweet          - Twitter error return: Could not authenticate you.
+ERROR 2016-03-29 00:48:09,120 46080ms HomeController         PostTweet          - Twitter error return: Could not authenticate you.
+ERROR 2016-03-29 00:53:49,193 386153ms HomeController         PostTweet          - Twitter error return: Could not authenticate you.
+ERROR 2016-03-29 01:09:21,185 19348ms HomeController         PostTweet          - Twitter error return: Could not authenticate you.
+ERROR 2016-03-29 01:17:13,252 80635ms HomeController         PostTweet          - Twitter error return: Could not authenticate you.
+ERROR 2016-03-29 01:17:21,302 88686ms HomeController         PostTweet          - Twitter error return: Could not authenticate you.
+ERROR 2016-03-29 01:18:08,980 136364ms HomeController         PostTweet          - Twitter error return: Could not authenticate you.
+ERROR 2016-03-29 01:18:17,761 145145ms HomeController         PostTweet          - Twitter error return: Could not authenticate you.
+ERROR 2016-03-29 01:19:12,209 15519ms HomeController         PostTweet          - Twitter error return: Status is a duplicate.
+ERROR 2016-03-29 01:19:27,244 30554ms HomeController         PostTweet          - Twitter error return: Could not authenticate you.
+ERROR 2016-03-29 01:19:42,067 45377ms HomeController         PostTweet          - Twitter error return: Could not authenticate you.
+ERROR 2016-03-29 01:19:47,186 50496ms HomeController         PostTweet          - Twitter error return: Could not authenticate you.
+ERROR 2016-03-29 01:20:01,056 64366ms HomeController         PostTweet          - Twitter error return: Could not authenticate you.
+ERROR 2016-03-29 01:27:14,562 32983ms HomeController         PostTweet          - Twitter error return: Could not authenticate you.

@@ -11,16 +11,11 @@ namespace MVC.Twitter.Models
     /// </summary>
     public class TweetsModel
     {
-        public static List<TweetInModel> Tweets { get; set; }
-
-        public TweetsModel(List<TweetInModel> tweets)
+        public static IList<TweetInModel> Tweets { get; set; }
+        
+        public static IList<TweetViewModel> ToViewModel()
         {
-            Tweets = tweets;
-        }
-
-        public static List<TweetViewModel> ToViewModel()
-        {
-            List<TweetViewModel> tweetsViewModel = new List<TweetViewModel>();
+            IList<TweetViewModel> tweetsViewModel = new List<TweetViewModel>();
 
             foreach (TweetInModel item in Tweets)
             {
@@ -34,7 +29,7 @@ namespace MVC.Twitter.Models
                     Published = item.Published,
                 };
 
-                tweetsViewModel.Add(viewModel);
+                tweetsViewModel. Add(viewModel);
             }
 
             return tweetsViewModel;

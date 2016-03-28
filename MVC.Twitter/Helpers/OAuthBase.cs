@@ -22,7 +22,7 @@ namespace MVC.Twitter
 
         protected const string OAuthVersion = "1.0";
         protected const string OAuthParameterPrefix = "oauth_";
-        
+
         // List of know and used oauth parameters' names
         protected const string OAuthConsumerKeyKey = "oauth_consumer_key";
         protected const string OAuthCallbackKey = "oauth_callback";
@@ -88,10 +88,10 @@ namespace MVC.Twitter
         /// <param name="normalizedRequestParameters"></param>
         /// <param name="timeStamp"></param>
         /// <returns>A base64 string of the hash value</returns>
-        protected string GenerateSignatureHmacsha1Alg(Uri url, string consumerKey, string consumerSecret, string token, string tokenSecret, HttpMethod httpMethod, string timeStamp, string nonce, out string normalizedUrl,
+        protected string GenerateSignatureHmacsha1Alg(Uri url, IDictionary<string, string> requestParameters, string consumerKey, string consumerSecret, string token, string tokenSecret, HttpMethod httpMethod, string timeStamp, string nonce, out string normalizedUrl,
             out string normalizedRequestParameters)
         {
-            return GenerateSignature(url, consumerKey, consumerSecret, token, tokenSecret, httpMethod, timeStamp, nonce, SignatureTypes.Hmacsha1, out normalizedUrl, out normalizedRequestParameters);
+            return GenerateSignature(url, requestParameters, consumerKey, consumerSecret, token, tokenSecret, httpMethod, timeStamp, nonce, SignatureTypes.Hmacsha1, out normalizedUrl, out normalizedRequestParameters);
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace MVC.Twitter
         /// <param name="normalizedRequestParameters"></param>
         /// <param name="timeStamp"></param>
         /// <returns>A base64 string of the hash value</returns>
-        private string GenerateSignature(Uri url, string consumerKey, string consumerSecret, string token, string tokenSecret, HttpMethod httpMethod, string timeStamp, string nonce, SignatureTypes signatureType, out string normalizedUrl,
+        private string GenerateSignature(Uri url, IDictionary<string, string> requestParameters, string consumerKey, string consumerSecret, string token, string tokenSecret, HttpMethod httpMethod, string timeStamp, string nonce, SignatureTypes signatureType, out string normalizedUrl,
             out string normalizedRequestParameters)
         {
             normalizedUrl = null;
@@ -120,7 +120,7 @@ namespace MVC.Twitter
                 case SignatureTypes.Plaintext:
                     return HttpUtility.UrlEncode(string.Format("{0}&{1}", consumerSecret, tokenSecret));
                 case SignatureTypes.Hmacsha1:
-                    string signatureBase = GenerateSignatureBase(url, consumerKey, token, tokenSecret, httpMethod, timeStamp, nonce, Hmacsha1SignatureType, out normalizedUrl, out normalizedRequestParameters);
+                    string signatureBase = GenerateSignatureBase(url, requestParameters, consumerKey, token, tokenSecret, httpMethod, timeStamp, nonce, Hmacsha1SignatureType, out normalizedUrl, out normalizedRequestParameters);
 
                     using (HMACSHA1 hmacsha1 = new HMACSHA1())
                     {
@@ -151,7 +151,7 @@ namespace MVC.Twitter
         /// <param name="normalizedRequestParameters"></param>
         /// <param name="timeStamp"></param>
         /// <returns>The signature base</returns>
-        private static string GenerateSignatureBase(Uri url, string consumerKey, string token, string tokenSecret, HttpMethod httpMethod, string timeStamp, string nonce, string signatureType, out string normalizedUrl,
+        private static string GenerateSignatureBase(Uri url, IDictionary<string, string> requestParameters, string consumerKey, string token, string tokenSecret, HttpMethod httpMethod, string timeStamp, string nonce, string signatureType, out string normalizedUrl,
             out string normalizedRequestParameters)
         {
             if (token == null)
@@ -166,23 +166,24 @@ namespace MVC.Twitter
             if (string.IsNullOrEmpty(signatureType))
                 throw new ArgumentNullException("signatureType");
 
-            List<QueryParameter> parameters = GetQueryParameters(url.Query);
-            parameters.Add(new QueryParameter(OAuthVersionKey, OAuthVersion));
-            parameters.Add(new QueryParameter(OAuthNonceKey, nonce));
-            parameters.Add(new QueryParameter(OAuthTimestampKey, timeStamp));
-            parameters.Add(new QueryParameter(OAuthSignatureMethodKey, signatureType));
-            parameters.Add(new QueryParameter(OAuthConsumerKeyKey, consumerKey));
+            requestParameters.Add(OAuthVersionKey, OAuthVersion);
+            requestParameters.Add(OAuthNonceKey, nonce);
+            requestParameters.Add(OAuthTimestampKey, timeStamp);
+            requestParameters.Add(OAuthSignatureMethodKey, signatureType);
+            requestParameters.Add(OAuthConsumerKeyKey, consumerKey);
 
             if (!string.IsNullOrEmpty(token))
-                parameters.Add(new QueryParameter(OAuthTokenKey, token));
+            {
+                requestParameters.Add(OAuthTokenKey, token);
+            }
 
-            parameters.Sort(new QueryParameterComparer());
-
+            IDictionary<string, string> sortedRequestParameters = new SortedDictionary<string, string>(requestParameters);
+            
             normalizedUrl = string.Format("{0}://{1}", url.Scheme, url.Host);
             if (!((url.Scheme == "http" && url.Port == 80) || (url.Scheme == "https" && url.Port == 443)))
                 normalizedUrl += ":" + url.Port;
             normalizedUrl += url.AbsolutePath;
-            normalizedRequestParameters = NormalizeRequestParameters(parameters);
+            normalizedRequestParameters = NormalizeRequestParameters(sortedRequestParameters);
 
             StringBuilder signatureBase = new StringBuilder();
             signatureBase.AppendFormat("{0}&", httpMethod.ToString().ToUpper());
@@ -218,56 +219,22 @@ namespace MVC.Twitter
         }
 
         /// <summary>
-        ///     Internal function to cut out all non oauth query string parameters (all parameters not begining with "oauth_")
-        /// </summary>
-        /// <param name="parameters">The query string part of the Url</param>
-        /// <returns>A list of QueryParameter each containing the parameter name and value</returns>
-        private static List<QueryParameter> GetQueryParameters(string parameters)
-        {
-            if (parameters.StartsWith("?"))
-                parameters = parameters.Remove(0, 1);
-
-            List<QueryParameter> result = new List<QueryParameter>();
-
-            if (!string.IsNullOrEmpty(parameters))
-            {
-                string[] p = parameters.Split('&');
-                foreach (string s in p)
-                {
-                    if (!string.IsNullOrEmpty(s) && !s.StartsWith(OAuthParameterPrefix))
-                    {
-                        if (s.IndexOf('=') > -1)
-                        {
-                            string[] temp = s.Split('=');
-                            result.Add(new QueryParameter(temp[0], temp[1]));
-                        }
-                        else
-                            result.Add(new QueryParameter(s, string.Empty));
-                    }
-                }
-            }
-
-            return result;
-        }
-
-        /// <summary>
         ///     Normalizes the request parameters according to the spec
         /// </summary>
         /// <param name="parameters">The list of parameters already sorted</param>
         /// <returns>a string representing the normalized parameters</returns>
-        protected static string NormalizeRequestParameters(IList<QueryParameter> parameters)
+        protected static string NormalizeRequestParameters(IDictionary<string, string> parameters)
         {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < parameters.Count; i++)
+            var body = new StringBuilder();
+            foreach (var requestParameter in parameters)
             {
-                QueryParameter p = parameters[i];
-                sb.AppendFormat("{0}={1}", p.Name, p.Value);
-
-                if (i < parameters.Count - 1)
-                    sb.Append("&");
-            }
-
-            return sb.ToString();
+                body.Append(requestParameter.Key);
+                body.Append("=");
+                body.Append(Uri.EscapeUriString(requestParameter.Value));
+                body.Append("&");
+            } //remove trailing '&' 
+            body.Remove(body.Length - 1, 1);
+            return body.ToString();
         }
 
         /// <summary>
@@ -297,48 +264,6 @@ namespace MVC.Twitter
             }
 
             return result.ToString();
-        }
-
-        /// <summary>
-        ///     Provides an internal structure to sort the query parameter
-        /// </summary>
-        protected class QueryParameter
-        {
-            public QueryParameter(string name, string value)
-            {
-                this.name = name;
-                this.value = value;
-            }
-
-            public string Name
-            {
-                get { return name; }
-            }
-
-            public string Value
-            {
-                get { return value; }
-            }
-
-            private readonly string name;
-            private readonly string value;
-        }
-
-        /// <summary>
-        ///     Comparer class used to perform the sorting of the query parameters
-        /// </summary>
-        protected class QueryParameterComparer : IComparer<QueryParameter>
-        {
-            #region IComparer<QueryParameter> Members
-
-            public int Compare(QueryParameter x, QueryParameter y)
-            {
-                if (x.Name == y.Name)
-                    return String.CompareOrdinal(x.Value, y.Value);
-                return String.CompareOrdinal(x.Name, y.Name);
-            }
-
-            #endregion
         }
     }
 }

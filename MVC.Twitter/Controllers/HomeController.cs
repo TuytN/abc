@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -68,6 +69,7 @@ namespace MVC.Twitter.Controllers
                 {
                     if (ex.Message.Contains("Twitter"))
                     {
+                        logger.Error(ex.Message);
                         TempData["Error"] = ex.Message;
                     }
                     else

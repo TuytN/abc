@@ -12,7 +12,7 @@ namespace MVC.Twitter
 
         public void OnException(ExceptionContext filterContext)
         {
-            logger.Error("Custom handle ex");
+            logger.Error(filterContext.Exception.Message);
         }
     }
 }

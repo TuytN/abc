@@ -104,23 +104,16 @@ namespace MVC.Twitter
             {
                 throw new ArgumentException("CreateRequest, method is not suported");
             }
-            //TODO: IIDictionary<string, string> sortedList = new SortedIDictionary<string, string>(requestParameters);
             ServicePointManager.Expect100Continue = false;
 
-            string url = string.Empty;
-
-            if (requestParameters.Count != 0)
-            {
-                url = rootUrl + "?" + requestParameters.ToWebString();
-            }
-
-            string oauthSignature = OauthSignature(url, httpMethod);
+            string normalizeParameters = string.Empty;
+            string oauthSignature = OauthSignature(rootUrl, requestParameters, httpMethod, out normalizeParameters);
             
             string authHeader = AuthHeader(oauthSignature);
 
             ServicePointManager.Expect100Continue = false;
 
-            HttpRequestMessage request = new HttpRequestMessage(httpMethod, url);
+            HttpRequestMessage request = new HttpRequestMessage(httpMethod, rootUrl + "?" + normalizeParameters);
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("Authorization", authHeader);
 
@@ -158,7 +151,7 @@ namespace MVC.Twitter
         /// <param name="url"></param>
         /// <param name="httpMethod"></param>
         /// <returns></returns>
-        private string OauthSignature(string url, HttpMethod httpMethod)
+        private string OauthSignature(string url, IDictionary<string, string> requestParameters, HttpMethod httpMethod, out string normalizedString)
         {
             if (string.IsNullOrEmpty(url))
             {
@@ -168,45 +161,11 @@ namespace MVC.Twitter
             {
                 throw new ArgumentException("OauthSignature, method is not suported");
             }
-
+            
             string normalizeUrl;
-            string normalizedString;
-            string oauthSignature = GenerateSignatureHmacsha1Alg(new Uri(url), ConsumerKey, ConsumerKeySecret, AccessToken, AccessTokenSecret, httpMethod, oauthTimestamp, oauthNonce, out normalizeUrl, out normalizedString);
+            string oauthSignature = GenerateSignatureHmacsha1Alg(new Uri(url), requestParameters, ConsumerKey, ConsumerKeySecret, AccessToken, AccessTokenSecret, httpMethod, oauthTimestamp, oauthNonce, out normalizeUrl, out normalizedString);
             return oauthSignature;
         }
     }
-
-    /// <summary>
-    ///     Extension methods support for send request to Twitter
-    /// </summary>
-    public static class Extensions
-    {
-        /// <summary>
-        ///     parse list of parameter to web parameter url format
-        /// </summary>
-        /// <param name="source"> list of parameter </param>
-        /// <returns> web parameter url format </returns>
-        public static string ToWebString(this IDictionary<string, string> source)
-        {
-            if (source == null)
-            {
-                throw new ArgumentNullException("source");
-            }
-
-            var body = new StringBuilder();
-            if (source.Count != 0)
-            {
-                foreach (var requestParameter in source)
-                {
-                    body.Append(requestParameter.Key);
-                    body.Append("=");
-                    body.Append(Uri.EscapeUriString(requestParameter.Value));
-                    body.Append("&");
-                }
-                //remove the last '&' 
-                body.Remove(body.Length - 1, 1);
-            }
-            return body.ToString();
-        }
-    }
+    
 }

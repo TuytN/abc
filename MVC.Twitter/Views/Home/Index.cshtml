@@ -6,7 +6,7 @@
 
 <h2>Index</h2>
 
-<p class = "text-danger"> @TempData["Error"] </p>
+<p class="text-danger"> @TempData["Error"] </p>
 
 <form action="~/Home/PostTweet">
     Tweet now: <textarea type="input" name="TweetText" class="form-control"></textarea>
@@ -15,6 +15,10 @@
 <form action="~/Home/Refresh">
     <input type="submit" value="Refresh" class="btn btn-default">
 </form>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
 <table class="table">
     <tr>
         <th>
@@ -26,24 +30,15 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayTextFor(modelItem => item.Content)
-            </td>
-            <td>
-                @Html.DisplayTextFor(modelItem => item.AuthorName)
-            </td>
-        </tr>
-    }
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Content)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AuthorName)
+        </td>
+    </tr>
+}
 
 </table>
-
-@*<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
-    <script type="text/javascript">
-    $if (@ViewData["Error"] != null)
-    {
-        alert(@ViewData["Error"]);
-    }
-    </script>*@
