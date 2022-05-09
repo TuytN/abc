@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-05-08T15:50:57.855Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36" etag="oNtWSsnSeHkwcWpYgLKy" version="18.0.2" type="github">
+<mxfile host="app.diagrams.net" modified="2022-05-09T00:51:35.542Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36" etag="F4KDnEkXoYuxnqEFNyxC" version="18.0.2" type="github">
   <diagram id="6a731a19-8d31-9384-78a2-239565b7b9f0" name="Page-1">
     <mxGraphModel dx="1495" dy="844" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="none" math="0" shadow="0">
       <root>
@@ -13,11 +13,11 @@
         <mxCell id="1352" value="How to detect" style="ellipse;whiteSpace=wrap;html=1;shadow=0;fontFamily=Helvetica;fontSize=20;fontColor=#FFFFFF;align=center;strokeWidth=3;fillColor=#E85642;strokeColor=none;" parent="1" vertex="1">
           <mxGeometry x="1526" y="466.5" width="120" height="120" as="geometry" />
         </mxCell>
-        <mxCell id="1353" value="Scope" style="ellipse;whiteSpace=wrap;html=1;shadow=0;fontFamily=Helvetica;fontSize=20;fontColor=#FFFFFF;align=center;strokeWidth=3;fillColor=#1699D3;strokeColor=none;" parent="1" vertex="1">
-          <mxGeometry x="1620" y="791.5" width="120" height="120" as="geometry" />
+        <mxCell id="1353" value="What it can do" style="ellipse;whiteSpace=wrap;html=1;shadow=0;fontFamily=Helvetica;fontSize=20;fontColor=#FFFFFF;align=center;strokeWidth=3;fillColor=#1699D3;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="1620" y="751.5" width="120" height="120" as="geometry" />
         </mxCell>
         <mxCell id="1354" value="Bacteria" style="ellipse;whiteSpace=wrap;html=1;shadow=0;fontFamily=Helvetica;fontSize=20;fontColor=#FFFFFF;align=center;strokeWidth=3;fillColor=#736ca8;strokeColor=none;" parent="1" vertex="1">
-          <mxGeometry x="1711" y="1171.5" width="120" height="120" as="geometry" />
+          <mxGeometry x="1560" y="1091.5" width="120" height="120" as="geometry" />
         </mxCell>
         <mxCell id="1355" value="Fungi" style="ellipse;whiteSpace=wrap;html=1;shadow=0;fontFamily=Helvetica;fontSize=20;fontColor=#FFFFFF;align=center;strokeWidth=3;fillColor=#F08705;strokeColor=none;" parent="1" vertex="1">
           <mxGeometry x="1163.5" y="1309" width="120" height="120" as="geometry" />
@@ -254,16 +254,16 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="1438" value="What SQL querry can do to database -&amp;gt; same for SQL injection" style="rounded=1;fillColor=#64BBE2;strokeColor=none;strokeWidth=3;shadow=0;html=1;fontColor=#FFFFFF;whiteSpace=wrap;" parent="1" vertex="1">
-          <mxGeometry x="1781" y="695" width="120" height="66.5" as="geometry" />
+          <mxGeometry x="1740" y="680" width="120" height="66.5" as="geometry" />
         </mxCell>
         <mxCell id="1439" value="tables" style="rounded=1;fillColor=#64BBE2;strokeColor=none;strokeWidth=3;shadow=0;html=1;fontColor=#FFFFFF;" parent="1" vertex="1">
-          <mxGeometry x="1876" y="790" width="120" height="40" as="geometry" />
+          <mxGeometry x="1840" y="771.5" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="1440" value="columns" style="rounded=1;fillColor=#64BBE2;strokeColor=none;strokeWidth=3;shadow=0;html=1;fontColor=#FFFFFF;" parent="1" vertex="1">
-          <mxGeometry x="1850" y="851.5" width="120" height="40" as="geometry" />
+          <mxGeometry x="1840" y="841.5" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="1442" value="insert data" style="rounded=1;fillColor=#64BBE2;strokeColor=none;strokeWidth=3;shadow=0;html=1;fontColor=#FFFFFF;" parent="1" vertex="1">
-          <mxGeometry x="1821" y="920" width="120" height="40" as="geometry" />
+          <mxGeometry x="1754" y="896.5" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="1449" value="" style="edgeStyle=none;endArrow=none;strokeWidth=3;strokeColor=#64BBE2;html=1;" parent="1" source="1353" target="1438" edge="1">
           <mxGeometry x="-24" y="196.5" width="100" height="100" as="geometry">
@@ -290,22 +290,22 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="1457" value="Streptococcus" style="rounded=1;fillColor=#a29dc5;strokeColor=none;strokeWidth=3;shadow=0;html=1;fontColor=#FFFFFF;" parent="1" vertex="1">
-          <mxGeometry x="1646" y="1087" width="120" height="40" as="geometry" />
+          <mxGeometry x="1540" y="1006.5" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="1458" value="Echericia Colli" style="rounded=1;fillColor=#a29dc5;strokeColor=none;strokeWidth=3;shadow=0;html=1;fontColor=#FFFFFF;" parent="1" vertex="1">
-          <mxGeometry x="1631" y="1301.5" width="120" height="40" as="geometry" />
+          <mxGeometry x="1560" y="1286.5" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="1459" value="Lactobacyllus" style="rounded=1;fillColor=#a29dc5;strokeColor=none;strokeWidth=3;shadow=0;html=1;fontColor=#FFFFFF;" parent="1" vertex="1">
-          <mxGeometry x="1801" y="1114" width="120" height="40" as="geometry" />
+          <mxGeometry x="1720" y="1046.5" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="1460" value="Helicobacter" style="rounded=1;fillColor=#a29dc5;strokeColor=none;strokeWidth=3;shadow=0;html=1;fontColor=#FFFFFF;" parent="1" vertex="1">
-          <mxGeometry x="1901" y="1194" width="120" height="40" as="geometry" />
+          <mxGeometry x="1821" y="1141.5" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="1461" value="Bifidobacterium" style="rounded=1;fillColor=#a29dc5;strokeColor=none;strokeWidth=3;shadow=0;html=1;fontColor=#FFFFFF;" parent="1" vertex="1">
-          <mxGeometry x="1821" y="1331.5" width="120" height="40" as="geometry" />
+          <mxGeometry x="1740" y="1234" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="1462" value="Staphyllococcus" style="rounded=1;fillColor=#a29dc5;strokeColor=none;strokeWidth=3;shadow=0;html=1;fontColor=#FFFFFF;" parent="1" vertex="1">
-          <mxGeometry x="1551" y="1211.5" width="120" height="40" as="geometry" />
+          <mxGeometry x="1390" y="1131.5" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="1463" value="" style="edgeStyle=none;endArrow=none;strokeWidth=3;strokeColor=#A29DC5;html=1;" parent="1" source="1354" target="1460" edge="1">
           <mxGeometry x="251" y="-103.5" width="100" height="100" as="geometry">
@@ -350,13 +350,13 @@
           <mxGeometry x="1283.5" y="1471.5" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="1472" value="Mushroom" style="rounded=1;fillColor=#f5af58;strokeColor=none;strokeWidth=3;shadow=0;html=1;fontColor=#FFFFFF;" parent="1" vertex="1">
-          <mxGeometry x="1183.5" y="1529" width="120" height="40" as="geometry" />
+          <mxGeometry x="1163.5" y="1530" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="1473" value="Lichen" style="rounded=1;fillColor=#f5af58;strokeColor=none;strokeWidth=3;shadow=0;html=1;fontColor=#FFFFFF;" parent="1" vertex="1">
-          <mxGeometry x="1083.5" y="1471.5" width="120" height="40" as="geometry" />
+          <mxGeometry x="1049" y="1471.5" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="1474" value="Bread Mold" style="rounded=1;fillColor=#f5af58;strokeColor=none;strokeWidth=3;shadow=0;html=1;fontColor=#FFFFFF;" parent="1" vertex="1">
-          <mxGeometry x="1003.5" y="1411.5" width="120" height="40" as="geometry" />
+          <mxGeometry x="968.5" y="1411.5" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="1475" value="Yeast" style="rounded=1;fillColor=#f5af58;strokeColor=none;strokeWidth=3;shadow=0;html=1;fontColor=#FFFFFF;" parent="1" vertex="1">
           <mxGeometry x="963.5" y="1339" width="120" height="40" as="geometry" />
@@ -671,6 +671,9 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="1542" style="edgeStyle=none;rounded=0;html=1;exitX=0.5;exitY=1;endArrow=none;endFill=0;jettySize=auto;orthogonalLoop=1;strokeColor=#736CA8;strokeWidth=2;fillColor=#64bbe2;fontSize=20;fontColor=#23445D;" parent="1" source="1529" target="1529" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="IhuRvfA_rFuwMLD2I7EG-1545" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="1438" target="1438">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
